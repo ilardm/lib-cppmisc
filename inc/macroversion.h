@@ -30,3 +30,45 @@
 
 #pragma once
 
+/* === pack ================================================================ */
+
+#define MACROVERSION_PACK(v,m,s)        ( ((v) & (m)) << (s) )
+
+#define MACROVERSION_M2I(m)\
+    ( (m == 'd') ? 0 :\
+      ((m == 'b') ? 1 :\
+       (( m == 'r' ) ? 2 : 0))\
+    )
+
+#define MACROVERSION_(ma,mi,p,m)\
+    (   MACROVERSION_PACK((p),  0xFF, 0 )\
+      | MACROVERSION_PACK((mi), 0xFF, 8 )\
+      | MACROVERSION_PACK((ma), 0xFF, 16)\
+      | MACROVERSION_PACK((m),  0x03, 24)\
+    )
+#define MACROVERSION(ma,mi,p,m)         MACROVERSION_(ma,mi,p, MACROVERSION_M2I(m))
+
+/* === unpack ============================================================== */
+
+#define MACROVERSION_UNPACK(v,m,s)      ( ((v) >> (s)) & (m) )
+
+#define MACROVERSION_MA(v)              MACROVERSION_UNPACK((v), 0xFF, 16)
+#define MACROVERSION_MI(v)              MACROVERSION_UNPACK((v), 0xFF, 8 )
+#define MACROVERSION_P(v)               MACROVERSION_UNPACK((v), 0xFF, 0 )
+#define MACROVERSION_M(v)               MACROVERSION_UNPACK((v), 0x03, 24)
+
+/* === naming ============================================================== */
+
+#define MACROVERSION_NAME_FOR(c)            c ## _MACROVERSION
+#define MACROVERSION_RNAME_OF_FOR(c,r)      c ## _REQUIRES_ ## r ## _MACROVERSION
+
+/* === checks ============================================================== */
+
+#define MACROVERSION_COMPATIBLE_WITH__(r,p)\
+    (    MACROVERSION_MA(p) == MACROVERSION_MA(r)\
+      && MACROVERSION_MI(p) >= MACROVERSION_MI(r)\
+      && MACROVERSION_P(p) >= MACROVERSION_P(r)\
+    )
+#define MACROVERSION_COMPATIBLE_WITH_(r,p)  MACROVERSION_COMPATIBLE_WITH__(r,p)
+#define MACROVERSION_COMPATIBLE_WITH(r,p)\
+    MACROVERSION_COMPATIBLE_WITH_( MACROVERSION_RNAME_OF_FOR(r,p), MACROVERSION_NAME_FOR(p) )
