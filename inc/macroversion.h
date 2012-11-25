@@ -50,7 +50,7 @@ class Version
         Version(const uint32_t);
         ~Version();
 
-        const bool compatibleWith( const Version& ) const;
+        const bool isCompatibleWith( const Version& ) const;
         const std::string toString() const { return versionString; };
 
     private:

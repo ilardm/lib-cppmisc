@@ -84,9 +84,18 @@ Version::~Version()
 {
 };
 
-const bool Version::compatibleWith( const Version& _p ) const
+const bool Version::isCompatibleWith( const Version& _p ) const
 {
-    return MACROVERSION_COMPATIBLE_WITH__( _p.version, version );
+    const bool ret = MACROVERSION_COMPATIBLE_WITH__( _p.version, version );
+#if ENABLE_DETRACE__
+    OTRACE(clog) << versionString
+        << ( ret ? " " : " in" )
+        << "compatible with "
+        << _p.versionString
+        << endl;
+#endif
+
+    return ret;
 };
 
 #undef ENABLE_DETRACE__
