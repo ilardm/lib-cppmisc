@@ -94,6 +94,9 @@ class Version
 #define MACROVERSION_NAME_FOR(c)            c ## _MACROVERSION
 #define MACROVERSION_RNAME_OF_FOR(c,r)      c ## _REQUIRES_ ## r ## _MACROVERSION
 
+#define VERSIONO_NAME_FOR(c)                c ## _VERSION
+#define VERSIONO_RNAME_OF_FOR(c,r)          c ## _REQUIRES_ ## r ## _VERSION
+
 /* === checks ============================================================== */
 
 #define MACROVERSION_COMPATIBLE_WITH__(r,p)\
@@ -104,3 +107,11 @@ class Version
 #define MACROVERSION_COMPATIBLE_WITH_(r,p)  MACROVERSION_COMPATIBLE_WITH__(r,p)
 #define MACROVERSION_COMPATIBLE_WITH(r,p)\
     MACROVERSION_COMPATIBLE_WITH_( MACROVERSION_RNAME_OF_FOR(r,p), MACROVERSION_NAME_FOR(p) )
+
+/* === declarations && definitions ========================================= */
+
+#define VERSIONO_DECLARE_FOR(c)             extern const ilardm::lib::cppmisc::Version VERSIONO_NAME_FOR(c)
+#define VERSIONO_DEFINE_FOR(c)              const ilardm::lib::cppmisc::Version VERSIONO_NAME_FOR(c)( MACROVERSION_NAME_FOR(c) )
+
+#define VERSIONO_RDECLARE_OF_FOR(c,r)       extern const ilardm::lib::cppmisc::Version VERSIONO_RNAME_OF_FOR(c,r)
+#define VERSIONO_RDEFINE_OF_FOR(c,r)        const ilardm::lib::cppmisc::Version VERSIONO_RNAME_OF_FOR(c,r)( MACROVERSION_RNAME_OF_FOR(c,r) )

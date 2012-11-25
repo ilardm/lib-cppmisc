@@ -89,21 +89,4 @@ const bool Version::compatibleWith( const Version& _p ) const
     return MACROVERSION_COMPATIBLE_WITH__( _p.version, version );
 };
 
-//FIXME: just test code
-#define Base_MACROVERSION                       MACROVERSION(1,2,3, 'b')
-
-#define Plug_MACROVERSION                       MACROVERSION(0,1,0, 'd')
-#define Plug_REQUIRES_Base_MACROVERSION         MACROVERSION(1,0,0, 'r')
-
-#if !MACROVERSION_COMPATIBLE_WITH( Plug,Base )
-#  error "incompat"
-#endif
-
-static const int v      = MACROVERSION_NAME_FOR(Base);
-static const int vv     = MACROVERSION_NAME_FOR(Plug);
-static const int vvv    = MACROVERSION_RNAME_OF_FOR(Plug,Base);
-
-static const Version VBase( MACROVERSION_NAME_FOR(Base) );
-static const Version VPlug( MACROVERSION_NAME_FOR(Plug) );
-
 #undef ENABLE_DETRACE__
