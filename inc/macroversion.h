@@ -30,6 +30,38 @@
 
 #pragma once
 
+#include    <stdint.h>
+#include    <string>
+
+namespace ilardm {
+namespace lib {
+namespace cppmisc {
+
+class Version
+{
+    public:
+        typedef enum {
+              DEVELOPMENT = 0
+            , BETA
+            , RELEASE
+        } MODE;
+
+    public:
+        Version(const uint32_t);
+        ~Version();
+
+        const bool compatibleWith( const Version& ) const;
+        const std::string toString() const { return versionString; };
+
+    private:
+        const uint32_t          version;
+        std::string             versionString;
+};
+
+}
+}
+}
+
 /* === pack ================================================================ */
 
 #define MACROVERSION_PACK(v,m,s)        ( ((v) & (m)) << (s) )

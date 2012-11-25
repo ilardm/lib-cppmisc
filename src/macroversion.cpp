@@ -29,6 +29,65 @@
  */
 
 #include    "macroversion.h"
+using ilardm::lib::cppmisc::Version;
+
+#include    <sstream>
+using std::stringstream;
+
+#include    <iostream>
+using std::clog;
+using std::endl;
+
+#define ENABLE_DETRACE__        (1)
+#include    "detrace.h"
+
+Version::Version( const uint32_t _version )
+    : version( _version )
+{
+    stringstream ss;
+
+    ss << MACROVERSION_MA( version ) << "."
+        << MACROVERSION_MI( version ) << "."
+        << MACROVERSION_P( version );
+
+    MODE m = static_cast<MODE>( MACROVERSION_M( version ) );
+    if ( RELEASE != m )
+    {
+        ss << "-";
+
+        switch ( m )
+        {
+            case DEVELOPMENT:
+                ss << "devel";
+                break;
+            case BETA:
+                ss << "beta";
+                break;
+            default:
+                ss << "unknown";
+                break;
+        };
+    }
+
+    versionString = ss.str();
+
+#if ENABLE_DETRACE__
+    OTRACE(clog) << std::hex
+        << "0x" << _version << " "
+        << std::dec
+        << "(" << versionString << ")"
+        << endl;
+#endif
+};
+
+Version::~Version()
+{
+};
+
+const bool Version::compatibleWith( const Version& _p ) const
+{
+    return MACROVERSION_COMPATIBLE_WITH__( _p.version, version );
+};
 
 //FIXME: just test code
 #define Base_MACROVERSION                       MACROVERSION(1,2,3, 'b')
@@ -43,3 +102,8 @@
 static const int v      = MACROVERSION_NAME_FOR(Base);
 static const int vv     = MACROVERSION_NAME_FOR(Plug);
 static const int vvv    = MACROVERSION_RNAME_OF_FOR(Plug,Base);
+
+static const Version VBase( MACROVERSION_NAME_FOR(Base) );
+static const Version VPlug( MACROVERSION_NAME_FOR(Plug) );
+
+#undef ENABLE_DETRACE__
