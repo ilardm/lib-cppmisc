@@ -38,7 +38,7 @@ using std::stringstream;
 using std::clog;
 using std::endl;
 
-#define ENABLE_DETRACE__        (1)
+#define ENABLE_DETRACE__        (0)
 #include    "detrace.h"
 
 Version::Version( const uint32_t _version )
