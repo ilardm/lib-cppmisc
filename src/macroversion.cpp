@@ -28,6 +28,12 @@
  *    OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/**
+ * \file    macroversion.cpp
+ * \brief   Run-time version implementation
+ * \author  Ilya Arefiev
+ */
+
 #include    "macroversion.h"
 using ilardm::lib::cppmisc::Version;
 
@@ -38,9 +44,18 @@ using std::stringstream;
 using std::clog;
 using std::endl;
 
+/** enable/disable debug output. */
 #define ENABLE_DETRACE__        (0)
 #include    "detrace.h"
 
+/** Version class constructor.
+ *
+ * Parses passed \a _version with macroses
+ * #MACROVERSION_MA, #MACROVERSION_MI, #MACROVERSION_P, #MACROVERSION_M
+ * and fill versionString.
+ *
+ * \param _version  version bitmask built with macro #MACROVERSION
+ */
 Version::Version( const uint32_t _version )
     : version( _version )
 {
@@ -80,10 +95,23 @@ Version::Version( const uint32_t _version )
 #endif
 };
 
+/** Dummy destructor.
+ *
+ */
 Version::~Version()
 {
 };
 
+/** Version compatibility checker.
+ *
+ * \param _p    Version object represents existing version with
+ *              which compatibility should be checked
+ *
+ * \see     MACROVERSION_COMPATIBLE_WITH__
+ *
+ * \return  \c true if compatible \n
+ *          \c false otherwise
+ */
 const bool Version::isCompatibleWith( const Version& _p ) const
 {
     const bool ret = MACROVERSION_COMPATIBLE_WITH__( _p.version, version );
