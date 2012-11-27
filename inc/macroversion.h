@@ -57,7 +57,7 @@ class Version
          *
          * Used to determine Version#versionString suffix
          *
-         * \see     MACROVERSION_M2I
+         * \see     #MACROVERSION_M2I
          */
         typedef enum {
               DEVELOPMENT = 0   /**< development stage. expands to '-d' suffix */
@@ -80,7 +80,7 @@ class Version
     private:
         /** version bitmap
          *
-         * \see MACROVERSION
+         * \see #MACROVERSION
          */
         const uint32_t          version;
 
@@ -105,7 +105,7 @@ class Version
  * \param m     mask
  * \param s     shift
  *
- * \see MACROVERSION_UNPACK
+ * \see #MACROVERSION_UNPACK
  */
 #define MACROVERSION_PACK(v,m,s)        ( ((v) & (m)) << (s) )
 
@@ -129,7 +129,7 @@ class Version
  * \param p     patch version number
  * \param m     mode version character
  *
- * \see MACROVERSION_M2I
+ * \see #MACROVERSION_M2I
  */
 #define MACROVERSION_(ma,mi,p,m)\
     (   MACROVERSION_PACK((p),  0xFF, 0 )\
@@ -137,11 +137,11 @@ class Version
       | MACROVERSION_PACK((ma), 0xFF, 16)\
       | MACROVERSION_PACK((m),  0x03, 24)\
     )
-/** MACROVERSION_ decorator.
+/** #MACROVERSION_ decorator.
  * 
- * Required to expand MACROVERSION_M2I macro
+ * Required to expand #MACROVERSION_M2I macro
  *
- * \see MACROVERISON_
+ * \see #MACROVERSION_
  */
 #define MACROVERSION(ma,mi,p,m)         MACROVERSION_(ma,mi,p, MACROVERSION_M2I(m))
 
@@ -159,7 +159,7 @@ class Version
  * \param m     version part mask
  * \param s     version part shift
  *
- * \see MACROVERSION_PACK
+ * \see #MACROVERSION_PACK
  */
 #define MACROVERSION_UNPACK(v,m,s)      ( ((v) >> (s)) & (m) )
 
@@ -217,7 +217,7 @@ class Version
 /** Version compatibility checker.
  *
  * Checks if required version is compatible with required.
- * Parametres should be bitmasks built with MACROVERSION macro.
+ * Parametres should be bitmasks built with #MACROVERSION macro.
  *
  * \param r     required version
  * \param p     presentef version
@@ -227,16 +227,16 @@ class Version
       && MACROVERSION_MI(p) >= MACROVERSION_MI(r)\
       && MACROVERSION_P(p) >= MACROVERSION_P(r)\
     )
-/** MACROVERSION_COMPATIBLE_WITH__ helper macro */
+/** #MACROVERSION_COMPATIBLE_WITH__ helper macro */
 #define MACROVERSION_COMPATIBLE_WITH_(r,p)  MACROVERSION_COMPATIBLE_WITH__(r,p)
-/** MACROVERSION_COMPATIBLE_WITH_ helper macro
+/** #MACROVERSION_COMPATIBLE_WITH_ helper macro
  *
  * Parametres should be version names.
  *
  * \param r     required version name
  * \param p     presented version name
  *
- * \see MACROVERSION_COMPATIBLE_WITH_
+ * \see #MACROVERSION_COMPATIBLE_WITH_
  */
 #define MACROVERSION_COMPATIBLE_WITH(r,p)\
     MACROVERSION_COMPATIBLE_WITH_( MACROVERSION_RNAME_OF_FOR(r,p), MACROVERSION_NAME_FOR(p) )
@@ -251,7 +251,7 @@ class Version
 
 /** Declares Version object for particular \a c name.
  *
- * Object name formed with VERSIONO_NAME_FOR
+ * Object name formed with #VERSIONO_NAME_FOR
  */
 #define VERSIONO_DECLARE_FOR(c)             extern const ilardm::lib::cppmisc::Version VERSIONO_NAME_FOR(c)
 /** Defines Version object for particular \a c name.
@@ -259,21 +259,21 @@ class Version
  * Version constructor invoked with bitmask name built with
  * MACROVERSION_NAME_FOR macro.
  *
- * \see     VERSIONO_DECLARE_FOR
+ * \see     #VERSIONO_DECLARE_FOR
  */
 #define VERSIONO_DEFINE_FOR(c)              const ilardm::lib::cppmisc::Version VERSIONO_NAME_FOR(c)( MACROVERSION_NAME_FOR(c) )
 
 /** Declares required Version object for particular \a c and \a r names.
  *
- * Object name formed with VERSIONO_RNAME_OF_FOR
+ * Object name formed with #VERSIONO_RNAME_OF_FOR
  */
 #define VERSIONO_RDECLARE_OF_FOR(c,r)       extern const ilardm::lib::cppmisc::Version VERSIONO_RNAME_OF_FOR(c,r)
 /** Defines Required Version object for particular \a c and \a r names.
  *
  * Version constructor invoked with bitmask name built with
- * MACROVERSION_RNAME_OF_FOR macro.
+ * #MACROVERSION_RNAME_OF_FOR macro.
  *
- * \see     VERSIONO_RDECLARE_OF_FOR
+ * \see     #VERSIONO_RDECLARE_OF_FOR
  */
 #define VERSIONO_RDEFINE_OF_FOR(c,r)        const ilardm::lib::cppmisc::Version VERSIONO_RNAME_OF_FOR(c,r)( MACROVERSION_RNAME_OF_FOR(c,r) )
 
