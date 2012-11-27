@@ -30,15 +30,44 @@
 
 #pragma once
 
+/**
+ * \file    detrace.h
+ * \brief   Debug trace macro definitions.
+ * \author  Ilya Arefiev
+ *
+ * In order to use following macroses ENABLE_DETRACE__
+ * must be defined as \c (1) \b before include of this file.
+ * Also, use of following macroses must be surrounded with
+ * conditional compilation macroses:
+ * \code
+ * #if ENABLE_DETRACE__
+ * ...
+ * #endif
+ * \endcode
+ *
+ * \note    see source code for more documentation since doxygen
+ *          could not generate documentation for the following macroses
+ */
+
 #if ENABLE_DETRACE__ /* ==================================================== */
 
+/** compiler-specific function signature macro.
+ */
 #if defined( __GNUC__ ) /* ============================================= */
 #  define FSIGN__       __PRETTY_FUNCTION__
 #else /* --------------------------------------------------------------- */
 #  define FSIGN__       __func__
 #endif /* ============================================================== */
 
+/** Debug trace for function use.
+ *
+ * \param out   any object with \c operator<<() defined
+ */
 #define FTRACE(out)     out << FSIGN__ << " "
+/** Debug trace for objects only.
+ *
+ * \param out   any object with \c operator<<() defined
+ */
 #define OTRACE(out)     FTRACE(out) \
     << "(" << (void*)this << ") " 
 
