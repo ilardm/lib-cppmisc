@@ -2,9 +2,19 @@ cmake_minimum_required ( VERSION 2.8 )
 project ( libcppmisc )
 set ( TARGET_NAME   "cppmisc" ) # actual executable name
 
+set ( VERSION_MAJOR    0 )
+set ( VERSION_MINOR    1 )
+set ( VERSION_PATCH    0 )
+set ( VERSION_MODE     d )
+set ( VERSION_STRING   "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}-${VERSION_MODE}" )
+
+message ( STATUS "configuring ${PROJECT_NAME} v${VERSION_STRING}" )
+
 # define project sources and includes directories
 set ( SOURCES_DIR   "${CMAKE_CURRENT_SOURCE_DIR}/src/" )
-set ( INCLUDES_DIR  "${CMAKE_CURRENT_SOURCE_DIR}/inc/" )
+set ( INCLUDES_DIR  "${CMAKE_CURRENT_SOURCE_DIR}/inc/"
+                    "${CMAKE_CURRENT_BINARY_DIR}"
+    )
 
 # define includes search path
 include_directories ( ${INCLUDES_DIR}
@@ -13,6 +23,11 @@ include_directories ( ${INCLUDES_DIR}
 aux_source_directory ( ${SOURCES_DIR} SOURCES )
 # define libraries search path
 link_directories ( )
+
+configure_file ( ${CMAKE_CURRENT_SOURCE_DIR}/inc/libcppmisc_version.h.in
+                 ${CMAKE_CURRENT_BINARY_DIR}/libcppmisc_version.h
+                 @ONLY
+               )
 
 # set default build type
 if ( NOT CMAKE_BUILD_TYPE )
