@@ -3,7 +3,7 @@ project ( libcppmisc-exmple )
 set ( TARGET_NAME   "${PROJECT_NAME}" ) # actual executable name
 
 set ( VERSION_MAJOR    0 )
-set ( VERSION_MINOR    0 )
+set ( VERSION_MINOR    1 )
 set ( VERSION_PATCH    0 )
 set ( VERSION_MODE     d )
 set ( VERSION_STRING   "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}-${VERSION_MODE}" )

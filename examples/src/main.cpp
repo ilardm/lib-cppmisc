@@ -9,7 +9,7 @@ using namespace std;
 #define TEST(c) {\
     auto_ptr<c> p( new c( MKSTR(c) ) );\
     bool r = p->test();\
-    std::cout << "test of " << p->getName() << " is " << (r?"succeed":"failed") << endl;\
+    std::cout << "test of " << p->getName() << ": " << (r?"succeed":"FAILED") << endl;\
     }
 
 #include    "version_tester.hpp"
