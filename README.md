@@ -36,6 +36,12 @@ with
 
 to build html documentation inside build directory.
 
+## Usage
+Please refer to `examples` directory to find some use-cases.
+
+### Build
+Add `-DBUILD_EXAMPLES=1` to `cmake` command to build examples also.
+
 ## License
 Licensed under the terms of BSD New License. Copy of license
 may be found in LICENSE file.
