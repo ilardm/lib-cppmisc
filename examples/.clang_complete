@@ -1,3 +1,4 @@
 -I/usr/include
 -I./inc/
+-I../inc/
 -D_DEBUG

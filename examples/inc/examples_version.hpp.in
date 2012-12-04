@@ -1,0 +1,25 @@
+#pragma once
+
+#include    "macroversion.h"
+#include    "libcppmisc_version.h"
+
+#define examples_MACROVERSION         MACROVERSION(@VERSION_MAJOR@,\
+                                                   @VERSION_MINOR@,\
+                                                   @VERSION_PATCH@,\
+                                                   '@VERSION_MODE@'\
+                                                  )
+VERSIONO_DECLARE_FOR(examples);
+
+#define examples_REQUIRES_libcppmisc_MACROVERSION       MACROVERSION(0,1,0, 'd')
+VERSIONO_RDECLARE_OF_FOR(examples,libcppmisc);
+
+#if !MACROVERSION_COMPATIBLE_WITH(examples,libcppmisc)
+#error "incompatible libcppmisc version"
+#endif
+
+// artificial incompatibility
+#define examplesi_REQUIRES_libcppmisc_MACROVERSION       MACROVERSION(0xFF,1,0, 'r')
+VERSIONO_RDECLARE_OF_FOR(examplesi,libcppmisc);
+#if !MACROVERSION_COMPATIBLE_WITH(examplesi,libcppmisc)
+#warning "incompatible libcppmisc version (artificial)"
+#endif
