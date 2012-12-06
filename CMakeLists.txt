@@ -24,7 +24,7 @@ set ( INCLUDES_DIR  "${CMAKE_CURRENT_SOURCE_DIR}/inc/"
 include_directories ( ${INCLUDES_DIR}
                     )
 # define sources search path
-aux_source_directory ( ${SOURCES_DIR} SOURCES )
+file ( GLOB_RECURSE SOURCES ${SOURCES_DIR}/*.cpp )
 # define libraries search path
 link_directories ( )
 

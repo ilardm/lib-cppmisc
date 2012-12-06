@@ -114,7 +114,7 @@ Version::~Version()
  */
 const bool Version::isCompatibleWith( const Version& _p ) const
 {
-    const bool ret = MACROVERSION_COMPATIBLE_WITH__( _p.version, version );
+    const bool ret = MACROVERSION_COMPATIBLE_WITH__( version, _p.version);
 #if ENABLE_DETRACE__
     OTRACE(clog) << versionString
         << ( ret ? " " : " in" )
